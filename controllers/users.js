@@ -1,4 +1,3 @@
-const sequelize = require("../utils/database");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const SECRET_KEY = process.env.SECRET_JWT_KEY;
@@ -49,8 +48,8 @@ exports.loginUser = async (req, res, next) => {
       },
     });
     if (!existingUser) {
-      return res.status(400).json({
-        message: "User with this email doesn't exist",
+      return res.status(404).json({
+        message: "User not found",
         error: error,
         success: false,
       });
