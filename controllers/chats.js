@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const Chat = require("../models/chat");
 
 exports.sendMessage = async (req, res, next) => {
@@ -17,9 +18,15 @@ exports.sendMessage = async (req, res, next) => {
 };
 
 exports.getAllChats = async (req, res, next) => {
+  const lastMsgId = req.query.lastMsgId;
   try {
     const allChats = await Chat.findAll({
       order: [["createdAt", "ASC"]],
+      where: {
+        id: {
+          [Op.gt]: lastMsgId,
+        },
+      },
     });
     res
       .status(200)
