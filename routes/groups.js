@@ -30,6 +30,24 @@ router.get(
 );
 
 router.get(
+  "/getGroupMembers/:groupId",
+  AuthMiddleware,
+  GroupControllers.getGroupMembers
+);
+
+router.get(
+  "/makeAdmin/:userGroupId/:userId",
+  AuthMiddleware,
+  GroupControllers.makeGroupAdmin
+);
+
+router.get(
+  "/removeMember/:userGroupId",
+  AuthMiddleware,
+  GroupControllers.removeMember
+);
+
+router.get(
   "/acceptGroupInvite/:groupId",
   AuthMiddleware,
   GroupControllers.acceptGroupInvite

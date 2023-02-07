@@ -6,14 +6,12 @@ const { Op } = require("sequelize");
 exports.createGroup = async (req, res, next) => {
   const { name } = req.body;
   try {
-    console.log("admin id------------------", req.user.id);
     const newGroup = await req.user.createGroup(
       {
         name: name,
-        admin: req.user.id,
       },
       {
-        through: { status: "accepted" },
+        through: { status: "accepted", admin: req.user.id },
       }
     );
     res.status(200).json({ message: "New group created!", success: true });
@@ -27,7 +25,6 @@ exports.createGroup = async (req, res, next) => {
 
 exports.getGroupNameList = async (req, res, next) => {
   const user = req.user;
-  console.log("User::::::::::::::::", user);
   try {
     let groupNameList = await UserGroup.findAll({
       where: {
@@ -67,6 +64,8 @@ exports.getGroupNameList = async (req, res, next) => {
 exports.getUsersForInvite = async (req, res, next) => {
   const user = req.user;
   const groupId = req.params.groupId;
+  const search = req.query.search ? req.query.search : "";
+  console.log("search", search);
   let usersInvited = [];
   try {
     let allUsers = await User.findAll({
@@ -74,6 +73,23 @@ exports.getUsersForInvite = async (req, res, next) => {
         id: {
           [Op.ne]: user.id,
         },
+        [Op.or]: [
+          {
+            name: {
+              [Op.like]: `${search}%`,
+            },
+          },
+          {
+            email: {
+              [Op.like]: `${search}%`,
+            },
+          },
+          {
+            phone: {
+              [Op.like]: `${search}%`,
+            },
+          },
+        ],
       },
     });
     await Promise.all(
@@ -122,6 +138,7 @@ exports.sendGroupInviteRequest = async (req, res, next) => {
       userId: userId,
       groupId: groupId,
       status: "pending",
+      admin: req.user.id,
     });
     res.status(200).json({
       message: "Group invite sent",
@@ -173,6 +190,32 @@ exports.getGroupInvites = async (req, res, next) => {
   }
 };
 
+exports.getGroupMembers = async (req, res, next) => {
+  const user = req.user;
+  const groupId = req.params.groupId;
+  try {
+    const groupMembers = await UserGroup.findAll({
+      where: {
+        userId: {
+          [Op.ne]: user.id,
+        },
+        groupId: groupId,
+      },
+      include: User,
+    });
+    res.status(200).json({
+      message: "Members list fetched",
+      members: groupMembers,
+      success: true,
+    });
+  } catch (error) {
+    console.log("Error:", error);
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error, success: false });
+  }
+};
+
 exports.acceptGroupInvite = async (req, res, next) => {
   const user = req.user;
   const groupId = req.params.groupId;
@@ -209,6 +252,41 @@ exports.rejectGroupInvite = async (req, res, next) => {
       }
     );
     res.status(200).json({ message: "Invitation accepted", success: true });
+  } catch (error) {
+    console.log("Error:", error);
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error, success: false });
+  }
+};
+
+exports.makeGroupAdmin = async (req, res, next) => {
+  const userGroupId = req.params.userGroupId;
+  const userId = req.params.userId;
+  try {
+    const makeAdmin = await UserGroup.findByPk(userGroupId);
+    makeAdmin.admin = userId;
+    await makeAdmin.save();
+    res.status(200).json({ message: "Member was made admin", success: true });
+  } catch (error) {
+    console.log("Error:", error);
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error, success: false });
+  }
+};
+
+exports.removeMember = async (req, res, next) => {
+  const userGroupId = req.params.userGroupId;
+  try {
+    const memberToRemove = await UserGroup.destroy({
+      where: {
+        id: userGroupId,
+      },
+    });
+    res
+      .status(200)
+      .json({ message: "Member was removed from the group", success: true });
   } catch (error) {
     console.log("Error:", error);
     res

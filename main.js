@@ -25,6 +25,10 @@ User.hasMany(Chat);
 Chat.belongsTo(User);
 User.belongsToMany(Group, { through: UserGroup });
 Group.belongsToMany(User, { through: UserGroup });
+User.hasMany(UserGroup);
+UserGroup.belongsTo(User);
+Group.hasMany(UserGroup);
+UserGroup.belongsTo(Group);
 Group.hasMany(Chat);
 Chat.belongsTo(Group);
 

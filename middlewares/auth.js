@@ -14,7 +14,6 @@ const auth = async (req, res, next) => {
           id: req.userId,
         },
       });
-      console.log("reqqqqqqq user>>>>>>>>>>>>", user);
       req.user = user;
     } else {
       res.status(401).json({ message: "Unauthorized User" });

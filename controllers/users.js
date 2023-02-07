@@ -50,7 +50,6 @@ exports.loginUser = async (req, res, next) => {
     if (!existingUser) {
       return res.status(404).json({
         message: "User not found",
-        error: error,
         success: false,
       });
     }
@@ -58,7 +57,6 @@ exports.loginUser = async (req, res, next) => {
     if (!passwordMatch)
       return res.status(401).json({
         message: "Password is incorrect",
-        error: error,
         success: false,
       });
     const token = await jwt.sign(

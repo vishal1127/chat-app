@@ -12,6 +12,10 @@ const UserGroup = sequelize.define("userGroup", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  admin: {
+    type: Sequelize.UUID,
+    allowNull: false,
+  },
 });
 
 module.exports = UserGroup;
