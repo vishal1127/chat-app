@@ -4,8 +4,24 @@ const router = express.Router();
 const AuthMiddleware = require("../middlewares/auth");
 const ChatControllers = require("../controllers/chats");
 
-router.post("/sendMessage", AuthMiddleware, ChatControllers.sendMessage);
+router.post(
+  "/sendPublicMessage",
+  AuthMiddleware,
+  ChatControllers.sendPublicMessage
+);
 
-router.get("/getAllChats", AuthMiddleware, ChatControllers.getAllChats);
+router.get("/getPublicChats", AuthMiddleware, ChatControllers.getPublicChats);
+
+router.post(
+  "/sendGroupMessage/:groupId",
+  AuthMiddleware,
+  ChatControllers.sendGroupMessage
+);
+
+router.get(
+  "/getGroupChats/:groupId",
+  AuthMiddleware,
+  ChatControllers.getGroupChats
+);
 
 module.exports = router;
