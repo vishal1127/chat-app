@@ -1,0 +1,123 @@
+body {
+  background-color: #33444d;
+}
+
+main {
+  /* height: calc(100% - 52px); */
+  padding-bottom: 41px;
+}
+
+#logo-icon {
+  font-size: 40px;
+  padding-right: 10px;
+}
+
+.logo-text {
+  margin: 0;
+  font-size: 21px;
+}
+
+.chat-list {
+  margin-top: 10px;
+  display: grid;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.list-group-item {
+  display: flex;
+}
+
+.members-list {
+  justify-content: space-between;
+}
+
+.modal-body-header {
+  text-align: center;
+}
+
+.group-chats-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#group-chat-data {
+  width: 800px;
+  border: #212529;
+}
+
+#group-chat-data li:nth-child(odd) {
+  background-color: rgb(86, 147, 160);
+}
+
+#group-chat-data li:nth-child(even) {
+  background-color: rgb(119, 182, 200);
+}
+
+#group-chat-data-item {
+  border: #212529;
+}
+
+#chat-list-data {
+  width: 800px;
+  border: #212529;
+}
+
+#chat-list-data li:nth-child(odd) {
+  background-color: rgb(86, 147, 160);
+}
+
+#chat-list-data li:nth-child(even) {
+  background-color: rgb(119, 182, 200);
+}
+
+#chat-list-data-item {
+  border: #212529;
+}
+
+#send-btn {
+  width: 50px;
+  height: 32px;
+}
+
+/* Group CSS */
+.chat-footer {
+  display: flex;
+  justify-content: center;
+  background-color: #212529;
+  padding: 10px;
+}
+
+.group-chat-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.group-chat-section {
+  display: flex;
+  height: 500px;
+  background-color: #a4b5ff;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.group-chat-names {
+  width: 190px;
+}
+
+.group-btn {
+  width: 185px;
+  height: 60px;
+}
+
+.group-chats {
+  display: grid;
+  height: fit-content;
+}
+
+.invite-btn {
+  justify-self: end;
+  width: 140px;
+  height: 45px;
+}

@@ -24,4 +24,10 @@ router.get(
   ChatControllers.getGroupChats
 );
 
+router.post(
+  "/storeFileInPublicChat",
+  AuthMiddleware,
+  ChatControllers.storeFileInPublicChat
+);
+
 module.exports = router;

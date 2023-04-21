@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../stylesheets/homepage.css" />
+  </head>
+  <body>
+    <!-- navbar -->
+    <header class="p-3 border-bottom bg-dark">
+      <div class="container d-flex">
+        <div class="p-2 flex-grow-1" style="color: aliceblue; display: flex">
+          <a
+            href="/chat-app-frontend/pages/homepage.html"
+            class="d-flex align-items-center mb-2 mb-lg-0 text-light text-decoration-none"
+          >
+            <i id="logo-icon" class="material-icons">&#xE0BF;</i>
+            <p class="logo-text">Chat App</p>
+          </a>
+          <a
+            href="/chat-app-frontend/pages/homepage.html"
+            class="d-flex align-items-center mb-2 mb-lg-0 text-light text-decoration-none"
+            style="margin-left: 20px"
+          >
+            <!-- <i id="logo-icon" class="material-icons">&#xE0BF;</i> -->
+            <p class="logo-text">Public chat</p>
+          </a>
+        </div>
+        <div class="p-2" style="color: aliceblue"></div>
+        <div class="p-2" style="color: aliceblue">
+          <div class="dropdown text-end">
+            <a
+              href="#"
+              class="d-block link-light text-decoration-none dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="material-icons">&#xE7FD;</i>
+            </a>
+            <ul class="dropdown-menu text-small">
+              <!-- <li><a class="dropdown-item" href="#">Edit</a></li> -->
+              <li class="UserName dropdown-item"></li>
+              <!-- <li><a class="dropdown-item" href="#"1>Settings</a></li> -->
+              <li>
+                <a
+                  id="leaderboard-btn"
+                  href="./leaderboard.html"
+                  style="cursor: pointer; display: none"
+                  class="dropdown-item"
+                  >See Leaderboard</a
+                >
+              </li>
+              <li>
+                <a
+                  id="downloads-btn"
+                  href="./downloadsList.html"
+                  style="cursor: pointer; display: none"
+                  class="dropdown-item"
+                  >Downloads List</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a
+                  id="signout-btn"
+                  style="cursor: pointer"
+                  class="dropdown-item"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <!-- public chats -->
+      <div class="group-chat-div">
+        <div class="group-chat-section">
+          <!-- group listing -->
+          <div class="group-chat-names"></div>
+          <!-- group chats -->
+          <div class="group-chats">
+            <div class="group-chats-header">
+              <button
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#groupChatModal"
+              data-bs-title="inviteMembers"
+              class="btn btn-info invite-btn"
+              style="display: none"
+            >
+              Invite members
+            </button>
+            <button
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#groupChatModal"
+              data-bs-title="membersList"
+              class="btn btn-info members-list-btn"
+              style="display: none; margin-left: 5px;"
+              >
+              Members
+            </button>
+            </div>
+            <ul id="group-chat-data" class="list-group"></ul>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div class="chat-footer fixed-bottom">
+        <form>
+          <input
+            id="group-message"
+            type="text"
+            required
+            style="width: 500px; border-radius: 7px; margin-right: 10px"
+          />
+          <button
+            id="send-btn"
+            type="button"
+            class="btn btn-sm btn-outline-primary"
+          >
+            Send
+          </button>
+        </form>
+      </div>
+    </footer>
+    <!-- modal -->
+    <div
+      class="modal fade"
+      id="groupChatModal"
+      tabindex="-1"
+      aria-labelledby="groupModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="groupModalLabel"></h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body-header" style="display: none;">Search:<input id="search-member-list" type="text"></input></div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button id="create-group-btn" type="button" class="btn btn-primary">
+              Create
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="../scripts/bootstrap.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../scripts/group-chats.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"
+    ></script>
+  </body>
+</html>

@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const Chat = require("../models/chat");
 const Group = require("../models/group");
+const S3Services = require("../services/s3Services");
 
 exports.sendPublicMessage = async (req, res, next) => {
   const { text } = req.body;
@@ -82,4 +83,31 @@ exports.getGroupChats = async (req, res, next) => {
       .status(500)
       .json({ message: "Something went wrong", error: error, success: false });
   }
+};
+
+exports.storeFileInPublicChat = async (req, res, next) => {
+  const file = req.body;
+  console.log("file>>>>>>>>", file);
+  // const user = req.user;
+  // try {
+  //   // const allExpenses = await UserServices.getExpenses(req);
+  //   // const stringifiedExpenses = JSON.stringify(allExpenses);
+  //   const fileName = `File${user.id}/${new Date()}.txt`;
+  //   const fileUrl = await S3Services.uploadToS3(file, fileName);
+  //   const fileUrlAdded = await user.createChat({
+  //     from: user.name,
+  //     text: fileUrl,
+  //   });
+  //   res.status(200).json({
+  //     message: "File uploaded successfuly",
+  //     fileUrl: fileUrl,
+  //     fileUrlAdded: fileUrlAdded,
+  //     success: true,
+  //   });
+  // } catch (error) {
+  //   console.log("error", error);
+  //   res
+  //     .status(500)
+  //     .json({ message: "Something went wrong", success: false, error: error });
+  // }
 };
